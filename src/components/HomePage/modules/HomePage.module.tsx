@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import logo from "../../../media/WeatherAppLogo.svg";
 
+import { CircularProgress } from "@mui/material";
+
 import { HandleLocation } from "../hooks/Location";
 import LocationFetch from "../hooks/LocationFetch";
-import WeatherCard from "./WeatherCard.module";
+import WeatherCard from "./card/WeatherCard.module";
 
 export default function HomePage() {
   const { locationAccess, isLoaded, location } = HandleLocation();
@@ -15,19 +17,18 @@ export default function HomePage() {
       });
     }
   }, [location]);
-  if (isLoaded) {
+  if (curWeather) {
     if (locationAccess) {
       return (
         <div className="HomePage">
           <img src={logo} alt="W logo" />
-          <WeatherCard />
-          <WeatherCard />
+          <WeatherCard data={curWeather} />
         </div>
       );
     } else {
       return <p>Please allow your location</p>;
     }
   } else {
-    return <p>Waiting...</p>;
+    return <CircularProgress color="inherit" />;
   }
 }
