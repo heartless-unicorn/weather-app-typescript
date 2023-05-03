@@ -1,4 +1,4 @@
-import { month } from "../../helpers/constants";
+import { month } from "../helpers/constants";
 
 export default function HandleDate(date: Date) {
   const hours = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();

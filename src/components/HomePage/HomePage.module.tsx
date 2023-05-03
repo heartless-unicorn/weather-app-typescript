@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import logo from "../../../media/WeatherAppLogo.svg";
+import logo from "../../media/WeatherAppLogo.svg";
 
 import { CircularProgress } from "@mui/material";
 
 import { HandleLocation } from "../hooks/Location";
 import LocationFetch from "../hooks/LocationFetch";
-import WeatherCard from "./card/WeatherCard.module";
+import WeatherCard from "../card/WeatherCard.module";
 
 export default function HomePage() {
   const { locationAccess, isLoaded, location } = HandleLocation();
@@ -22,7 +22,7 @@ export default function HomePage() {
       return (
         <div className="HomePage">
           <img src={logo} alt="W logo" />
-          <WeatherCard data={curWeather} />
+          <WeatherCard data={curWeather} format="current" />
         </div>
       );
     } else {

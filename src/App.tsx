@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import "./App.css";
 import FavoritePage from "./components/FavoritePage/FavoritePage.module";
-import HomePage from "./components/HomePage/modules/HomePage.module";
+import HomePage from "./components/HomePage/HomePage.module";
 import Navigation from "./components/Navigation/Navigation.module";
 import SearchPage from "./components/SearchPage/SearchPage.module";
 

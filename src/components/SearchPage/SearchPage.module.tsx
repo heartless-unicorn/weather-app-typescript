@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import LocationFetch from "../HomePage/hooks/LocationFetch";
-import WeatherCard from "../HomePage/modules/card/WeatherCard.module";
+import LocationFetch from "../hooks/LocationFetch";
+import WeatherCard from "../card/WeatherCard.module";
 import { CircularProgress } from "@mui/material";
 
 export default function SearchPage() {
@@ -23,7 +23,7 @@ export default function SearchPage() {
   const result = () => {
     if (searchResult !== "") {
       if (curWeather) {
-        return <WeatherCard data={curWeather} />;
+        return <WeatherCard data={curWeather} format="city" />;
       } else if (loader === false) {
         return <CircularProgress color="inherit" aria-label="loader" />;
       }

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { API_ID_KEY } from "../../helpers/constants";
+import { API_ID_KEY } from "../helpers/constants";
 
 interface LocationInfo {
   lat?: number;
