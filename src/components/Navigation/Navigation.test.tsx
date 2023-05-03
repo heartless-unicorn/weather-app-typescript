@@ -1,8 +1,7 @@
-import React from "react";
-import { fireEvent, getByTestId, render, screen } from "@testing-library/react";
-import Navigation from "./Navigation.module";
+import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-// import createMemoryHistory from "history";
+
+import Navigation from "./Navigation.module";
 
 it("should render all buttons", () => {
   render(
@@ -16,7 +15,4 @@ it("should render all buttons", () => {
   expect(homeButton).toBeInTheDocument();
   expect(searchButton).toBeInTheDocument();
   expect(favoriteButton).toBeInTheDocument();
-});
-it("should navigate to search route", () => {
-  // const history = createMemoryHistory();
 });

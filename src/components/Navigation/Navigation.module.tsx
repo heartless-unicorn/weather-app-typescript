@@ -31,7 +31,7 @@ export default function Navigation() {
           label="Search"
           icon={<SearchRoundedIcon />}
           value="/search"
-          data-testid="nav-button"
+          data-testid="search-button"
         />
         <BottomNavigationAction
           label="Favorite"

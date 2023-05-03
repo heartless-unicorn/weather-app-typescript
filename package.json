@@ -52,5 +52,10 @@
   "devDependencies": {
     "@babel/preset-typescript": "^7.21.5",
     "jest": "^27.5.1"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    }
   }
 }

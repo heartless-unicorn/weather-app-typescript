@@ -12,7 +12,7 @@ export default function HomePage() {
   const [curWeather, setCurWeather] = useState();
   useEffect(() => {
     if (isLoaded) {
-      LocationFetch(location).then((response) => {
+      LocationFetch(location, "coords").then((response) => {
         setCurWeather(response);
       });
     }
@@ -29,6 +29,6 @@ export default function HomePage() {
       return <p>Please allow your location</p>;
     }
   } else {
-    return <CircularProgress color="inherit" />;
+    return <CircularProgress color="inherit" aria-label="loader" />;
   }
 }
