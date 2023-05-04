@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../helpers/constants";
 import { addCity, removeCity, selectActions } from "../action-slice";
 
 import "./WeatherCard.css";
+import { useState } from "react";
 
 interface WeatherInfo {
   data: {
@@ -18,12 +19,12 @@ interface WeatherInfo {
     temp: number;
   };
   format: string;
+  isFavorite?: boolean;
 }
 
 export default function WeatherCard(props: WeatherInfo) {
   const dispatch = useAppDispatch();
   const selector = useAppSelector(selectActions);
-  console.log(selector);
   const isAddable = props.format === "city" ? true : false;
   const date = HandleDate(props.data.date);
   function HandleFavorite(name: string) {
@@ -38,11 +39,12 @@ export default function WeatherCard(props: WeatherInfo) {
     <Card className="WeatherCard">
       <CardContent>
         <Grid container>
-          <Grid item xs={12} justifyContent="space-around">
+          <Grid item xs={10}>
             <Typography>
               {`${props.data.name}, ${props.data.country}`}
             </Typography>
-
+          </Grid>
+          <Grid item xs={2}>
             {isAddable && (
               <Button
                 variant="contained"
@@ -54,7 +56,17 @@ export default function WeatherCard(props: WeatherInfo) {
                 +
               </Button>
             )}
+            <Button
+              variant="contained"
+              color="success"
+              onClick={() => {
+                HandleFavorite(props.data.name);
+              }}
+            >
+              Update
+            </Button>
           </Grid>
+
           <Grid item xs={6}>
             <Typography variant="h2" component="h2">
               {`${props.data.temp} °C`}

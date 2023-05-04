@@ -7,6 +7,8 @@ import {
   CardActions,
   Collapse,
 } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "../helpers/constants";
+import { addCity, removeCity, selectActions } from "../action-slice";
 import { styled } from "@mui/material/styles";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -16,6 +18,7 @@ interface ExpandMoreProps extends IconButtonProps {
 }
 
 export default function ExpendedInfo() {
+  const selector = useAppSelector(selectActions);
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {

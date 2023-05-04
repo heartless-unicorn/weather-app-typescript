@@ -1,7 +1,7 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
 
-const API_ID_KEY: string = "4bef2345e330426bc02f380640dec5ea";
+const API_ID_KEY: string = "1ed362ec94b0b4a4bddd4306b49c88f0";
 const month: string[] = [
   "January",
   "February",

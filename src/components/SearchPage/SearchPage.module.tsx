@@ -7,10 +7,12 @@ export default function SearchPage() {
   const [searchResult, setSearchResult] = useState("");
   const [curWeather, setCurWeather] = useState();
   const [loader, setLoader] = useState<Boolean | null>(null);
+  const [isFavorite, setisFavorite] = useState(false);
   useEffect(() => {
     console.log("render in search");
-  }, []);
+  });
   useEffect(() => {}, [curWeather]);
+
   function handleSearch(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoader(false);
@@ -23,7 +25,9 @@ export default function SearchPage() {
   const result = () => {
     if (searchResult !== "") {
       if (curWeather) {
-        return <WeatherCard data={curWeather} format="city" />;
+        return (
+          <WeatherCard data={curWeather} format="city" isFavorite={true} />
+        );
       } else if (loader === false) {
         return <CircularProgress color="inherit" aria-label="loader" />;
       }
