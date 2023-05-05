@@ -1,4 +1,35 @@
 .WeatherCard {
-  max-width: 400px;
+  max-width: 440px;
   margin: 20px;
+  border-radius: 20px !important;
+}
+.content-box {
+  border-radius: inherit;
+}
+
+.card-buttons button {
+  color: white;
+  background-color: #5e4fc1;
+  margin-left: 30px;
+  margin-bottom: 10px;
+}
+.card-buttons button:hover {
+  background-color: #8a3b9c;
+}
+.WeatherCard h2 {
+  padding-top: 15px;
+}
+.date {
+  padding-top: 10px;
+  color: rgb(93, 93, 93);
+}
+.icon-box {
+  text-align: right;
+}
+.description {
+  display: inline-block;
+  color: white;
+  background-color: #6a75ba8e;
+  padding: 2px 8px;
+  border-radius: 10px;
 }

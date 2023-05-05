@@ -1,13 +1,14 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../../media/WeatherAppLogo.svg";
 
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Grid } from "@mui/material";
 
 import { HandleLocation } from "../hooks/Location";
 import LocationFetch from "../hooks/LocationFetch";
 import WeatherCard from "../card/WeatherCard.module";
 
 import Cities from "./Cities.module";
+import "./HomePage.css";
 
 interface data {
   name: string;
@@ -21,6 +22,7 @@ interface data {
 export default function HomePage() {
   const { locationAccess, isLoaded, location } = HandleLocation();
   const [curWeather, setCurWeather] = useState<data | undefined>();
+  const [update, setUpdate] = useState(true);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -31,20 +33,23 @@ export default function HomePage() {
         })
         .catch((err) => {
           setError(true);
-          console.log("Error on server");
         });
     }
-  }, [location]);
+  }, [location, update]);
+
+  function Update() {
+    setUpdate((state) => !state);
+  }
 
   if (curWeather) {
     if (locationAccess) {
       return (
         <div className="HomePage">
           <img src={logo} alt="W logo" data-testid="logo" />
-          <WeatherCard data={curWeather} format="current" />
-          <div>
+          <WeatherCard data={curWeather} format="current" update={Update} />
+          <Grid container>
             <Cities />
-          </div>
+          </Grid>
         </div>
       );
     } else {

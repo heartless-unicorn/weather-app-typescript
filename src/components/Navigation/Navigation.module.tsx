@@ -6,6 +6,7 @@ import BookmarkRoundedIcon from "@mui/icons-material/BookmarkRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { useNavigate } from "react-router-dom";
 
+import "./Navigation.css";
 export default function Navigation() {
   const [value, setValue] = useState("/");
   const navigate = useNavigate();
@@ -14,13 +15,13 @@ export default function Navigation() {
     if (value === newValue) {
       return;
     }
-    console.log("render in navigation");
+
     setValue(newValue);
     navigate(newValue);
   };
   return (
     <div className="Navigation">
-      <BottomNavigation value={value} onChange={manageNav}>
+      <BottomNavigation value={value} onChange={manageNav} className="nav-box">
         <BottomNavigationAction
           label="Home"
           icon={<HomeRoundedIcon />}
@@ -37,6 +38,7 @@ export default function Navigation() {
           label="Favorite"
           icon={<BookmarkRoundedIcon />}
           value="/favorite"
+          data-testid="favorite-button"
         />
       </BottomNavigation>
     </div>

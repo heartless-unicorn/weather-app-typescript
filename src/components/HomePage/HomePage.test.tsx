@@ -1,11 +1,12 @@
 import { render, screen, waitFor, act } from "@testing-library/react";
-import HomePage from "./HomePage.module";
 
-import LocationFetch from "../hooks/LocationFetch";
-import { HandleLocation } from "../hooks/Location";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import actionSlice from "../action-slice";
+
+import HomePage from "./HomePage.module";
+import LocationFetch from "../hooks/LocationFetch";
+import { HandleLocation } from "../hooks/Location";
 
 jest.mock("../hooks/LocationFetch");
 jest.mock("../hooks/Location");
@@ -38,52 +39,59 @@ describe("HomePage", () => {
     reducer: actionSlice,
   });
   test("renders loading spinner when weather data is not loaded", () => {
-    mockedFetch.mockImplementation(() =>
-      Promise.resolve({
-        name: "Lorem",
-        country: "lorem",
-        date: new Date(),
-        description: "Lorem lorem",
-        icon_id: "icon",
-        temp: 14,
-      })
-    );
-
-    LocationHandler.mockImplementation(() => {
-      return {
-        locationAccess: true,
-        isLoaded: true,
-        location: {
-          lon: 20,
-          lat: 20,
-        },
-      };
+    act(() => {
+      mockedFetch.mockImplementation(() =>
+        Promise.resolve({
+          name: "Lorem",
+          country: "lorem",
+          date: new Date(),
+          description: "Lorem lorem",
+          icon_id: "icon",
+          temp: 14,
+        })
+      );
     });
+    act(() => {
+      LocationHandler.mockImplementation(() => {
+        return {
+          locationAccess: true,
+          isLoaded: true,
+          location: {
+            lon: 20,
+            lat: 20,
+          },
+        };
+      });
+    });
+
     render(<HomePage />);
     const loader = screen.getByLabelText("loader");
     expect(loader).toBeInTheDocument();
   });
   test("renders correct weather data when it is loaded and location access is granted", async () => {
-    mockedFetch.mockImplementation(() =>
-      Promise.resolve({
-        name: "Kyiv",
-        country: "UA",
-        date: new Date(),
-        description: "Lorem lorem",
-        icon_id: "icon",
-        temp: 14,
-      })
-    );
-
-    LocationHandler.mockImplementation(() => {
-      return {
-        locationAccess: true,
-        isLoaded: true,
-        location: {
-          lon: 20,
-          lat: 20,
-        },
-      };
+    act(() => {
+      mockedFetch.mockImplementation(() =>
+        Promise.resolve({
+          name: "Kyiv",
+          country: "UA",
+          date: new Date(),
+          description: "Lorem lorem",
+          icon_id: "icon",
+          temp: 14,
+        })
+      );
+    });
+    act(() => {
+      LocationHandler.mockImplementation(() => {
+        return {
+          locationAccess: true,
+          isLoaded: true,
+          location: {
+            lon: 20,
+            lat: 20,
+          },
+        };
+      });
     });
 
     render(
@@ -100,26 +108,30 @@ describe("HomePage", () => {
   });
 
   test("renders error message when location hasn`t been granted ", async () => {
-    mockedFetch.mockImplementation(() =>
-      Promise.resolve({
-        name: "Col",
-        country: "Bla",
-        date: new Date(),
-        description: "BlaBla",
-        icon_id: "Bla",
-        temp: 14,
-      })
-    );
+    act(() => {
+      mockedFetch.mockImplementation(() =>
+        Promise.resolve({
+          name: "Col",
+          country: "Bla",
+          date: new Date(),
+          description: "BlaBla",
+          icon_id: "Bla",
+          temp: 14,
+        })
+      );
+    });
 
-    LocationHandler.mockImplementation(() => {
-      return {
-        locationAccess: false,
-        isLoaded: true,
-        location: {
-          lon: undefined,
-          lat: undefined,
-        },
-      };
+    act(() => {
+      LocationHandler.mockImplementation(() => {
+        return {
+          locationAccess: false,
+          isLoaded: true,
+          location: {
+            lon: undefined,
+            lat: undefined,
+          },
+        };
+      });
     });
 
     render(
@@ -135,17 +147,21 @@ describe("HomePage", () => {
     expect(errorHandler).toBeInTheDocument();
   });
   test("renders error message when server has an error ", async () => {
-    mockedFetch.mockImplementation(() => Promise.reject());
+    act(() => {
+      mockedFetch.mockImplementation(() => Promise.reject());
+    });
 
-    LocationHandler.mockImplementation(() => {
-      return {
-        locationAccess: false,
-        isLoaded: true,
-        location: {
-          lon: undefined,
-          lat: undefined,
-        },
-      };
+    act(() => {
+      LocationHandler.mockImplementation(() => {
+        return {
+          locationAccess: false,
+          isLoaded: true,
+          location: {
+            lon: undefined,
+            lat: undefined,
+          },
+        };
+      });
     });
 
     render(

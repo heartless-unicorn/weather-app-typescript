@@ -10,14 +10,14 @@ export default async function ExtendedInfoFetch(location: string) {
 
     return {
       time: ` ${hour < 10 ? `0${hour}` : hour}:00`,
-      temp: `${timestemp.main.temp} C`,
+      temp: `${Math.round(timestemp.main.temp)}°C`,
       icon: `https://openweathermap.org/img/wn/${timestemp.weather[0].icon}@2x.png`,
     };
   }
   await axios.get(url).then((response) => {
     data = {
       now: {
-        feels_like: `${response.data.list[0].main.feels_like} C`,
+        feels_like: `${Math.round(response.data.list[0].main.feels_like)}°C`,
         humidity: response.data.list[0].main.humidity,
         pressure: response.data.list[0].main.pressure,
         wind: ` ${response.data.list[0].wind.speed} km/h`,

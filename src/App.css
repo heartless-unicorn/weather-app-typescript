@@ -1,4 +1,6 @@
 .App {
   background: linear-gradient(#e75481, #929cde);
   padding: 20px;
+  height: 100vh;
+  font-family: "Comme", sans-serif;
 }

@@ -16,6 +16,6 @@ const month: string[] = [
   "November",
   "December",
 ];
-const useAppDispatch = () => useDispatch<AppDispatch>();
+const useAppDispatch: () => AppDispatch = () => useDispatch<AppDispatch>();
 const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 export { API_ID_KEY, month, useAppDispatch, useAppSelector };

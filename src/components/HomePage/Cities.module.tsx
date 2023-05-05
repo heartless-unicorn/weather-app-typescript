@@ -16,11 +16,8 @@ export default function Cities() {
   const store = useAppSelector(selectActions);
   const [cities, setCities] = useState<ResponseData[]>();
   const [loading, setLoading] = useState(true);
+  useEffect(() => {});
   useEffect(() => {
-    console.log("render in cities");
-  });
-  useEffect(() => {
-    console.log("render");
     const fetchCitiesDetails = async () => {
       const citiesDetails: ResponseData[] = await Promise.all(
         store.map((el: string) => {
@@ -32,16 +29,20 @@ export default function Cities() {
     };
     fetchCitiesDetails();
   }, [store, loading]);
+
+  const Update = () => {
+    setLoading(true);
+  };
   if (!loading) {
     if (cities) {
       return (
         <>
           {cities.map((el, id) => {
             if (el !== undefined) {
-              console.log("here in map");
-              return <WeatherCard data={el} format="city" key={id} />;
+              return (
+                <WeatherCard data={el} format="city" key={id} update={Update} />
+              );
             }
-            console.log(cities);
           })}
         </>
       );

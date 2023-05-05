@@ -1,0 +1,26 @@
+.SearchPage {
+  margin: 20px;
+  margin-left: 10%;
+}
+.SearchPage input {
+  border: 0;
+  outline: none;
+
+  margin-bottom: 10px;
+}
+.search {
+  background-color: white;
+  width: 50%;
+  height: 30px;
+  border-radius: 5px;
+  padding: 3px;
+}
+.submit {
+  background-color: #5e4fc1;
+  color: white;
+  padding: 8px;
+  border-radius: 10px;
+}
+.error {
+  width: 50%;
+}
