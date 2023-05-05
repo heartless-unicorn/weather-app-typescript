@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import logo from "../../media/WeatherAppLogo.svg";
 
-import { CircularProgress, Grid } from "@mui/material";
+import { CircularProgress, Grid, Alert } from "@mui/material";
 
 import { HandleLocation } from "../hooks/Location";
 import LocationFetch from "../hooks/LocationFetch";
@@ -53,11 +53,19 @@ export default function HomePage() {
         </div>
       );
     } else {
-      return <p>Please allow your location</p>;
+      return (
+        <Alert severity="error" className="error">
+          Please allow your location
+        </Alert>
+      );
     }
   } else {
     if (error) {
-      return <p>Error on server</p>;
+      return (
+        <Alert severity="error" className="error">
+          Error on server
+        </Alert>
+      );
     } else {
       return <CircularProgress color="inherit" aria-label="loader" />;
     }

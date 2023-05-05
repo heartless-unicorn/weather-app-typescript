@@ -3,7 +3,6 @@ import LocationFetch from "../hooks/LocationFetch";
 import WeatherCard from "../card/WeatherCard.module";
 
 import { CircularProgress, Grid, Alert } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 
 import "./SearchPage.css";
 
@@ -23,9 +22,6 @@ export default function SearchPage() {
   const [error, setError] = useState(false);
   const [update, setUpdate] = useState(true);
 
-  useEffect(() => {
-    console.log("render in search");
-  });
   useEffect(() => {}, [curWeather, update]);
 
   function handleSearch(e: React.FormEvent<HTMLFormElement>) {
