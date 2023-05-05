@@ -9,15 +9,30 @@ import WeatherCard from "../card/WeatherCard.module";
 
 import Cities from "./Cities.module";
 
+interface data {
+  name: string;
+  country: string;
+  date: Date;
+  description: string;
+  icon_id: string;
+  temp: number;
+}
+
 export default function HomePage() {
   const { locationAccess, isLoaded, location } = HandleLocation();
-  const [curWeather, setCurWeather] = useState();
+  const [curWeather, setCurWeather] = useState<data | undefined>();
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (isLoaded) {
-      LocationFetch(location, "coords").then((response) => {
-        setCurWeather(response);
-      });
+      LocationFetch(location, "coords")
+        .then((response) => {
+          setCurWeather(response);
+        })
+        .catch((err) => {
+          setError(true);
+          console.log("Error on server");
+        });
     }
   }, [location]);
 
@@ -25,7 +40,7 @@ export default function HomePage() {
     if (locationAccess) {
       return (
         <div className="HomePage">
-          <img src={logo} alt="W logo" />
+          <img src={logo} alt="W logo" data-testid="logo" />
           <WeatherCard data={curWeather} format="current" />
           <div>
             <Cities />
@@ -36,6 +51,10 @@ export default function HomePage() {
       return <p>Please allow your location</p>;
     }
   } else {
-    return <CircularProgress color="inherit" aria-label="loader" />;
+    if (error) {
+      return <p>Error on server</p>;
+    } else {
+      return <CircularProgress color="inherit" aria-label="loader" />;
+    }
   }
 }

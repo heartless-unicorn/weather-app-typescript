@@ -7,11 +7,19 @@ interface LocationInfo {
   lon?: number;
   name?: string;
 }
+interface data {
+  name: string;
+  country: string;
+  date: Date;
+  description: string;
+  icon_id: string;
+  temp: number;
+}
 
 export default async function LocationFetch(
   location: LocationInfo,
   link: string
-) {
+): Promise<data | undefined> {
   const url =
     link === "city"
       ? `https://api.openweathermap.org/data/2.5/weather?q=${location.name}&appid=${API_ID_KEY}&units=metric`
@@ -27,5 +35,6 @@ export default async function LocationFetch(
       date: new Date(),
     };
   });
+
   return weatherDescriber;
 }

@@ -1,56 +1,44 @@
-import { useState } from "react";
-import {
-  Grid,
-  Typography,
-  Card,
-  CardContent,
-  CardActions,
-  Collapse,
-} from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../helpers/constants";
-import { addCity, removeCity, selectActions } from "../action-slice";
-import { styled } from "@mui/material/styles";
-import IconButton, { IconButtonProps } from "@mui/material/IconButton";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Grid, Typography } from "@mui/material";
+import { DetailedWeather, timeStemp } from "../helpers/interfaces";
 
-interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean;
-}
-
-export default function ExpendedInfo() {
-  const selector = useAppSelector(selectActions);
-  const [expanded, setExpanded] = useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
-  const ExpandMore = styled((props: ExpandMoreProps) => {
-    const { expand, ...other } = props;
-    return <IconButton {...other} />;
-  })(({ theme, expand }) => ({
-    transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
-    }),
-  }));
-
+export default function ExpendedInfo(props: { data: DetailedWeather }) {
+  function displayTimestemp(timestemp: timeStemp) {
+    return (
+      <>
+        <Typography paragraph>t{timestemp.time} </Typography>
+        <img src={timestemp.icon} />
+        <Typography>{timestemp.temp}</Typography>
+      </>
+    );
+  }
   return (
     <>
-      <CardActions disableSpacing>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent></CardContent>
-      </Collapse>
+      <Grid container>
+        <Grid item xs={6}>
+          <Typography paragraph>
+            Feels like: {props.data.now.feels_like}
+          </Typography>
+          <Typography paragraph>Wind: {props.data.now.wind}</Typography>
+        </Grid>
+        <Grid item xs={6}>
+          <Typography paragraph>Humidity: {props.data.now.humidity}</Typography>
+          <Typography paragraph>Pressure: {props.data.now.pressure}</Typography>
+        </Grid>
+        <Grid container>
+          <Grid item xs={3}>
+            {displayTimestemp(props.data[1])}
+          </Grid>
+          <Grid item xs={3}>
+            {displayTimestemp(props.data[2])}{" "}
+          </Grid>
+          <Grid item xs={3}>
+            {displayTimestemp(props.data[3])}
+          </Grid>
+          <Grid item xs={3}>
+            {displayTimestemp(props.data[4])}
+          </Grid>
+        </Grid>
+      </Grid>
     </>
   );
 }

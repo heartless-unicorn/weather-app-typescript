@@ -16,7 +16,9 @@ export default function Cities() {
   const store = useAppSelector(selectActions);
   const [cities, setCities] = useState<ResponseData[]>();
   const [loading, setLoading] = useState(true);
-
+  useEffect(() => {
+    console.log("render in cities");
+  });
   useEffect(() => {
     console.log("render");
     const fetchCitiesDetails = async () => {

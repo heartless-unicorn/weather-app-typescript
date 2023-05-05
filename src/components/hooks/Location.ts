@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+
 export function HandleLocation() {
   const [locationAccess, setLocationAccess] = useState(true);
   const [isLoaded, setLoaded] = useState(false);

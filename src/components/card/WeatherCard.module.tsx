@@ -1,13 +1,13 @@
 import { Grid, Typography, Card, CardContent, Button } from "@mui/material";
+import { useEffect, useState } from "react";
 
-import ExpendedInfo from "./ExpendedInfo";
+import ExpendedHandler from "./ExpendedHandler";
 import HandleDate from "../hooks/HandleDate";
 
 import { useAppDispatch, useAppSelector } from "../helpers/constants";
 import { addCity, removeCity, selectActions } from "../action-slice";
 
 import "./WeatherCard.css";
-import { useState } from "react";
 
 interface WeatherInfo {
   data: {
@@ -25,13 +25,24 @@ interface WeatherInfo {
 export default function WeatherCard(props: WeatherInfo) {
   const dispatch = useAppDispatch();
   const selector = useAppSelector(selectActions);
+  const [button, setButton] = useState(true);
   const isAddable = props.format === "city" ? true : false;
   const date = HandleDate(props.data.date);
+
+  useEffect(() => {
+    if (selector.includes(props.data.name)) {
+      setButton(true);
+    } else {
+      setButton(false);
+    }
+  }, [button, props]);
   function HandleFavorite(name: string) {
     if (selector.includes(name)) {
       dispatch(removeCity(name));
+      setButton(false);
     } else {
       dispatch(addCity(name));
+      setButton(true);
     }
   }
 
@@ -53,7 +64,7 @@ export default function WeatherCard(props: WeatherInfo) {
                   HandleFavorite(props.data.name);
                 }}
               >
-                +
+                {button ? "-" : "+"}
               </Button>
             )}
             <Button
@@ -84,7 +95,7 @@ export default function WeatherCard(props: WeatherInfo) {
           </Grid>
         </Grid>
       </CardContent>
-      <ExpendedInfo />
+      <ExpendedHandler name={props.data.name} />
     </Card>
   );
 }
